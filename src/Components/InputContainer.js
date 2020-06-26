@@ -1,16 +1,18 @@
 import React from "react";
-import FilterDropdown from "./FilterDropdown";
+import RaceDropdown from "./RaceDropdown";
+import StateDropdown from "./StateDropdown";
 
 const InputContainer = (props) => {
   return (
     <div className="input-container">
       <h1>Police Dashboard</h1>
-      <FilterDropdown
+      <RaceDropdown
         filter={props.race}
         filterHandler={props.filterHandler}
-        filterName='race'
-        title='Race'
+        filterName="race"
+        title="Race"
       />
+      <StateDropdown title="State" />
     </div>
   );
 };

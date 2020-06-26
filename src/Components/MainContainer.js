@@ -1,18 +1,22 @@
 import React from "react";
 import LineChart from "./LineChart";
+import NumbersContainer from "./NumbersContainer";
 
 const MainContainer = (props) => {
   return (
-    <div className="main-container">
+    <React.Fragment>
       {props.loaded && (
-        <LineChart
-          loaded={props.loaded}
-          date={props.date}
-          race={props.race}
-          filter={props.filter}
-        />
+        <div className="main-container">
+          <NumbersContainer />
+          <LineChart
+            loaded={props.loaded}
+            date={props.date}
+            race={props.race}
+            filter={props.filter}
+          />
+        </div>
       )}
-    </div>
+    </React.Fragment>
   );
 };
 

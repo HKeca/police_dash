@@ -51,6 +51,7 @@ const LineChart = (props) => {
       labels: labels,
       datasets: [
         {
+          label: "Fatal Shootings",
           data: values,
         },
       ],
@@ -88,7 +89,11 @@ const LineChart = (props) => {
     dataToRender = createDataSet(labels, values);
   }
 
-  return <Line data={dataToRender} />;
+  return (
+    <div style={{flex: '4'}}>
+      <Line data={dataToRender} responsive={true} maintainAspectRatio={false} />
+    </div>
+  );
 };
 
 export default LineChart;
