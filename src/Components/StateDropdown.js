@@ -77,6 +77,7 @@ const StateDropdown = (props) => {
     <React.Fragment>
       <h3>{props.title}</h3>
       <select className="filter-dropdown" onChange={changeFilter}>
+        <option value="">All</option>
         {options}
       </select>
     </React.Fragment>

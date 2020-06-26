@@ -12,7 +12,11 @@ const InputContainer = (props) => {
         filterName="race"
         title="Race"
       />
-      <StateDropdown title="State" />
+      <StateDropdown
+        title="State"
+        filterName="state"
+        filterHandler={props.filterHandler}
+      />
     </div>
   );
 };

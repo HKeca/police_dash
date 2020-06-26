@@ -19,12 +19,13 @@ const App = () => {
   const [threatLevel, setThreatLevel] = useState();
   const [flee, setFlee] = useState();
   const [bodyCamera, setBodyCamera] = useState();
+  const [concatenatedString, setConcatenatedString] = useState();
   const [loaded, setLoaded] = useState(false);
 
   const [filter, setFilter] = useState({
-    race: '',
-    age: '',
-    state: ''
+    race: "",
+    age: "",
+    state: "",
   });
 
   useEffect(() => {
@@ -49,6 +50,7 @@ const App = () => {
         let threatLevel = [];
         let flee = [];
         let bodyCamera = [];
+        let concatenatedString = [];
 
         splitWithoutHeaders.forEach((row) => {
           const rowWithoutCommas = row.replace(/,\s/, " ");
@@ -73,6 +75,12 @@ const App = () => {
           threatLevel.push(splitDatum[11]);
           flee.push(splitDatum[12]);
           bodyCamera.push(splitDatum[13]);
+
+          if (filter.state === "") {
+            concatenatedString.push(`${splitDatum[7]}`);
+          } else {
+            concatenatedString.push(`${splitDatum[7]}${splitDatum[9]}`);
+          }
         });
 
         setID(id);
@@ -89,12 +97,14 @@ const App = () => {
         setThreatLevel(threatLevel);
         setFlee(flee);
         setBodyCamera(bodyCamera);
+        setConcatenatedString(concatenatedString);
         setLoaded(true);
       });
-  }, []);
+  }, [filter]);
 
   const filterHandler = (filterName, filterSelection) => {
-    const filterToAdd = {...filter};
+    setLoaded(false);
+    const filterToAdd = { ...filter };
     filterToAdd[filterName] = filterSelection;
     setFilter(filterToAdd);
     console.log(filterToAdd);
@@ -102,14 +112,13 @@ const App = () => {
 
   return (
     <div className="App">
-      {loaded && (
-        <InputContainer race={race} filterHandler={filterHandler} />
-      )}
+      <InputContainer race={race} filterHandler={filterHandler} />
 
       <MainContainer
         loaded={loaded}
         date={date}
         race={race}
+        concatenatedString={concatenatedString}
         filter={filter}
       />
     </div>

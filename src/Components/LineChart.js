@@ -7,7 +7,7 @@ const LineChart = (props) => {
     data: { datasets: [], labels: [] },
   });
 
-  const sumUpValues = (dataArray1, filter1, dateArray) => {
+  const sumUpValues = (concatArray, concatFilter, dateArray) => {
     const concatenatedArray = [];
     const valueArray = [];
     const labelArray = [];
@@ -23,10 +23,10 @@ const LineChart = (props) => {
     }
 
     //Concatenate Data Array to Date
-    for (let i = 0; i < dataArray1.length; i++) {
-      if (dataArray1[i] === filter1 && filter1 !== "") {
-        concatenatedArray.push(dateArray[i].toString().concat(dataArray1[i]));
-      } else if (filter1 === "" && dateArray[i]) {
+    for (let i = 0; i < concatArray.length; i++) {
+      if (concatArray[i] === concatFilter && concatFilter !== "") {
+        concatenatedArray.push(dateArray[i].toString().concat(concatArray[i]));
+      } else if (concatFilter === "" && dateArray[i]) {
         concatenatedArray.push(dateArray[i].toString());
       }
     }
@@ -41,7 +41,7 @@ const LineChart = (props) => {
 
     return {
       valueArray: valueArray,
-      filter1: filter1,
+      concatFilter: concatFilter,
       labelArray: labelArray,
     };
   };
@@ -58,39 +58,39 @@ const LineChart = (props) => {
     };
   };
 
-  // const changeFilter = (event) => {
-  //   setFilter(event.target.value);
-
-  //   if (props.loaded) {
-  //     const values = sumUpValues(props.race, event.target.value, props.date)
-  //       .valueArray;
-  //     const labels = sumUpValues(props.race, event.target.value, props.date)
-  //       .labelArray;
-  //     const filter = sumUpValues(props.race, event.target.value, props.date)
-  //       .filter1;
-
-  //     console.log(values, labels, filter);
-
-  //     setDateDataForLine(createDataSet(labels, values));
-  //   }
-  // };
-
   let dataToRender = {
     data: { datasets: [], labels: [] },
   };
 
   if (props.loaded) {
-    const values = sumUpValues(props.race, props.filter.race, props.date)
-      .valueArray;
-    const labels = sumUpValues(props.race, props.filter.race, props.date)
-      .labelArray;
-    const filter = sumUpValues(props.race, props.filter.race, props.date)
-      .filter1;
+    //Checks if filter contains a state or not
+    let filterToCheck = `${props.filter.race}${props.filter.state}`;
+    // if (filterToCheck.length === 1) {
+    //   filterToCheck = new RegExp(props.filter.race + "\\w\\w");
+    // }
+
+    //
+    console.log(filterToCheck);
+    const values = sumUpValues(
+      props.concatenatedString,
+      filterToCheck,
+      props.date
+    ).valueArray;
+    const labels = sumUpValues(
+      props.concatenatedString,
+      filterToCheck,
+      props.date
+    ).labelArray;
+    const concatFilter = sumUpValues(
+      props.concatenatedString,
+      filterToCheck,
+      props.date
+    ).concatFilter;
     dataToRender = createDataSet(labels, values);
   }
 
   return (
-    <div style={{flex: '4'}}>
+    <div style={{ flex: "4" }}>
       <Line data={dataToRender} responsive={true} maintainAspectRatio={false} />
     </div>
   );
