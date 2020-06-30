@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Line } from "react-chartjs-2";
 
 const LineChart = (props) => {
-  const [filter, setFilter] = useState("B");
-  const [dateDataForLine, setDateDataForLine] = useState({
-    data: { datasets: [], labels: [] },
-  });
+  // const [filter, setFilter] = useState("B");
+  // const [dateDataForLine, setDateDataForLine] = useState({
+  //   data: { datasets: [], labels: [] },
+  // });
 
   const sumUpValues = (concatArray, concatFilter, dateArray) => {
     const concatenatedArray = [];
@@ -72,7 +72,6 @@ const LineChart = (props) => {
     // }
 
     //
-    console.log(filterToCheck);
     const values = sumUpValues(
       props.concatenatedString,
       filterToCheck,

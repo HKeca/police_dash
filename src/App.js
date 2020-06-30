@@ -109,13 +109,12 @@ const App = () => {
     const filterToAdd = { ...filter };
     filterToAdd[filterName] = filterSelection;
     setFilter(filterToAdd);
-    console.log(filterToAdd);
   };
 
   return (
     <div className="App">
       <InputContainer race={race} filterHandler={filterHandler} />
-      
+
       <MainContainer
         loaded={loaded}
         date={date}
