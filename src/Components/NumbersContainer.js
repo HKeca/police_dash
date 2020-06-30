@@ -73,10 +73,10 @@ const NumbersContainer = (props) => {
       values.forEach((value) => {
         total = total + value;
       });
-      avgPerMonth = Math.round(total / values.length * 10) / 10;
+      avgPerMonth = Math.round((total / values.length) * 10) / 10;
 
       setTotal(total);
-      setAvgPerMonth(avgPerMonth)
+      setAvgPerMonth(avgPerMonth);
     }
   }, [props.loaded]);
 
@@ -86,18 +86,12 @@ const NumbersContainer = (props) => {
         <h6>Total</h6>
         <h1>{total}</h1>
       </div>
+      <br></br>
       <div>
         <h6>Average / mo</h6>
         <h1>{avgPerMonth}</h1>
       </div>
-      <div>
-        <h6>Total / 100,000 arrested in group</h6>
-        <h1>###</h1>
-      </div>
-      <div>
-        <h6>Total / 1,000,000 in group</h6>
-        <h1>###</h1>
-      </div>
+      <br></br>
     </div>
   );
 };
