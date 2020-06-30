@@ -78,6 +78,8 @@ const App = () => {
 
           if (filter.state === "") {
             concatenatedString.push(`${splitDatum[7]}`);
+          } else if (filter.race === "") {
+            concatenatedString.push(`${splitDatum[9]}`);
           } else {
             concatenatedString.push(`${splitDatum[7]}${splitDatum[9]}`);
           }
@@ -113,7 +115,7 @@ const App = () => {
   return (
     <div className="App">
       <InputContainer race={race} filterHandler={filterHandler} />
-
+      
       <MainContainer
         loaded={loaded}
         date={date}

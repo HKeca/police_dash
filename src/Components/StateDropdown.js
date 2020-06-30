@@ -20,6 +20,7 @@ const StateDropdown = (props) => {
     "CA",
     "CO",
     "CT",
+    "DC",
     "DE",
     "FL",
     "GA",

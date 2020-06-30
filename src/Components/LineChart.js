@@ -51,7 +51,9 @@ const LineChart = (props) => {
       labels: labels,
       datasets: [
         {
-          label: "Fatal Shootings",
+          label: `Fatal Shootings - Race: ${
+            props.filter.race === "" ? "All" : props.filter.race
+          }, State: ${props.filter.state === "" ? "All" : props.filter.state}`,
           data: values,
         },
       ],
