@@ -1,5 +1,6 @@
 import React from "react";
 import LineChart from "./LineChart";
+import RadarChart from './RadarChart';
 import NumbersContainer from "./NumbersContainer";
 
 const MainContainer = (props) => {
@@ -12,6 +13,7 @@ const MainContainer = (props) => {
           loaded={props.loaded}
           date={props.date}
         />
+        <div style={{flex: '4', overflowY: 'auto'}}>
         <LineChart
           loaded={props.loaded}
           date={props.date}
@@ -19,6 +21,12 @@ const MainContainer = (props) => {
           concatenatedString={props.concatenatedString}
           filter={props.filter}
         />
+        <RadarChart
+          loaded={props.loaded}
+          radarConcatString={props.radarConcatString}
+          filter={props.filter}/>
+        </div>
+        
       </div>
     </React.Fragment>
   );

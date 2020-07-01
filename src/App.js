@@ -21,6 +21,7 @@ const App = () => {
   const [bodyCamera, setBodyCamera] = useState();
   const [concatenatedString, setConcatenatedString] = useState();
   const [loaded, setLoaded] = useState(false);
+  const [radarConcatString, setRadarConcatString] = useState();
 
   const [filter, setFilter] = useState({
     race: "",
@@ -51,6 +52,7 @@ const App = () => {
         let flee = [];
         let bodyCamera = [];
         let concatenatedString = [];
+        let radarConcatString = [];
 
         splitWithoutHeaders.forEach((row) => {
           const rowWithoutCommas = row.replace(/,\s/, " ");
@@ -83,6 +85,56 @@ const App = () => {
           } else {
             concatenatedString.push(`${splitDatum[7]}${splitDatum[9]}`);
           }
+
+          //THE FOLLOWING FILTER IS FOR RADAR CHART
+          let radarConcat;
+          if (filter.race === "") {
+            radarConcat = "-";
+          } else {
+            radarConcat = splitDatum[7];
+          }
+
+          if (filter.state === "") {
+            radarConcat = radarConcat + "--";
+          } else {
+            radarConcat = radarConcat + splitDatum[9];
+          }
+
+          //Checking for armed with gun
+          if (splitDatum[4] && splitDatum[4].includes("gun")) {
+            radarConcat = radarConcat + "T";
+          } else {
+            radarConcat = radarConcat + "F";
+          }
+
+          //Checking for male/female
+          if (splitDatum[6] === "M" || splitDatum[6] === "F") {
+            radarConcat = radarConcat + splitDatum[6];
+          } else {
+            radarConcat = radarConcat + "-";
+          }
+
+          //Checking for mental illness
+          if (splitDatum[10] === "True") {
+            radarConcat = radarConcat + "T";
+          } else if (splitDatum[10] === "False") {
+            radarConcat = radarConcat + "F";
+          } else {
+            radarConcat = radarConcat + "-";
+          }
+
+          //Check for body cam
+          // if (splitDatum[13] === "True") {
+          //   radarConcat = radarConcat + "T";
+          // } else if (splitDatum[13] === "False") {
+          //   radarConcat = radarConcat + "F";
+          // } else {
+          //   radarConcat = radarConcat + "-";
+          // }
+
+          // radarConcat = radarConcat + splitDatum[13];
+          //
+          radarConcatString.push(radarConcat);
         });
 
         setID(id);
@@ -100,6 +152,7 @@ const App = () => {
         setFlee(flee);
         setBodyCamera(bodyCamera);
         setConcatenatedString(concatenatedString);
+        setRadarConcatString(radarConcatString);
         setLoaded(true);
       });
   }, [filter]);
@@ -120,6 +173,7 @@ const App = () => {
         date={date}
         race={race}
         concatenatedString={concatenatedString}
+        radarConcatString={radarConcatString}
         filter={filter}
       />
     </div>

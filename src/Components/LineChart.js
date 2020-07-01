@@ -55,6 +55,7 @@ const LineChart = (props) => {
             props.filter.race === "" ? "All" : props.filter.race
           }, State: ${props.filter.state === "" ? "All" : props.filter.state}`,
           data: values,
+          backgroundColor: "rgba(26, 188, 156, .4)",
         },
       ],
     };
@@ -91,7 +92,7 @@ const LineChart = (props) => {
   }
 
   return (
-    <div style={{ flex: "4" }}>
+    <div>
       <Line data={dataToRender} responsive={true} maintainAspectRatio={false} />
     </div>
   );
