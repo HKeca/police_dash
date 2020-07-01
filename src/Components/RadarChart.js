@@ -3,7 +3,11 @@ import { Radar } from "react-chartjs-2";
 
 const RadarChart = (props) => {
   const [radarData, setRadarData] = useState({
-    labels: ["Not Armed With Gun", "Signs of Mental Illness", "Male"],
+    labels: [
+      "Percentage Not Armed With Gun",
+      "Percentage Signs of Mental Illness",
+      "Percentage Male",
+    ],
     datasets: [
       {
         data: [0, 0, 0],
@@ -56,7 +60,11 @@ const RadarChart = (props) => {
     percentMental = Math.round((totalMental / totalInFilter) * 100);
 
     return {
-      labels: ["Not Armed With Gun", "Signs of Mental Illness", "Male"],
+      labels: [
+        "Percentage Not Armed With Gun",
+        "Percentage Signs of Mental Illness",
+        "Percentage Male",
+      ],
       datasets: [
         {
           data: [percentUnarmed, percentMental, percentMale],
@@ -73,6 +81,9 @@ const RadarChart = (props) => {
   }, [props.loaded]);
 
   const options = {
+    legend: {
+      display: false,
+    },
     scale: {
       ticks: {
         suggestedMin: 0,
