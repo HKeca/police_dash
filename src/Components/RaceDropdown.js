@@ -16,6 +16,7 @@ const RaceDropdown = (props) => {
     { title: "All", filter: "" },
     { title: "White", filter: "W" },
     { title: "Black", filter: "B" },
+    { title: "Hispanic", filter: "H" },
   ];
 
   const options = fitlerToRender.map((filter) => {
