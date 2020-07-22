@@ -12,6 +12,7 @@ const MainContainer = (props) => {
           filter={props.filter}
           loaded={props.loaded}
           date={props.date}
+          name={props.name}
         />
         <div style={{flex: '4', overflowY: 'auto'}}>
         <LineChart

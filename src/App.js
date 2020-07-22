@@ -172,6 +172,7 @@ const App = () => {
         loaded={loaded}
         date={date}
         race={race}
+        name={name}
         concatenatedString={concatenatedString}
         radarConcatString={radarConcatString}
         filter={filter}

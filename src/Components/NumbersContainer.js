@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
+import VictimList from "./VictimList";
 
 const NumbersContainer = (props) => {
   const [avgPerMonth, setAvgPerMonth] = useState();
   const [total, setTotal] = useState();
+  const [names, setNames] = useState([]);
 
   const sumUpValues = (concatArray, concatFilter, dateArray) => {
     const concatenatedArray = [];
     const valueArray = [];
+    const namesArray = [];
     const labelArray = [];
 
     //Get Distinct Dates For Labels
@@ -19,10 +22,11 @@ const NumbersContainer = (props) => {
       }
     }
 
-    //Concatenate Data Array to Date
+    //Concatenate Data Array to Date AND adds names to VictimList
     for (let i = 0; i < concatArray.length; i++) {
       if (concatArray[i] === concatFilter && concatFilter !== "") {
         concatenatedArray.push(dateArray[i].toString().concat(concatArray[i]));
+        namesArray.push(props.name[i]);
       } else if (concatFilter === "" && dateArray[i]) {
         concatenatedArray.push(dateArray[i].toString());
       }
@@ -40,6 +44,7 @@ const NumbersContainer = (props) => {
       valueArray: valueArray,
       concatFilter: concatFilter,
       labelArray: labelArray,
+      namesArray: namesArray,
     };
   };
 
@@ -57,16 +62,12 @@ const NumbersContainer = (props) => {
         filterToCheck,
         props.date
       ).valueArray;
-      const labels = sumUpValues(
-        props.concatenatedString,
-        filterToCheck,
-        props.date
-      ).labelArray;
-      const concatFilter = sumUpValues(
-        props.concatenatedString,
-        filterToCheck,
-        props.date
-      ).concatFilter;
+
+      //HANDLING VICTIM NAMES
+      setNames(
+        sumUpValues(props.concatenatedString, filterToCheck, props.date)
+          .namesArray
+      );
 
       let total = 0;
       let avgPerMonth = 0;
@@ -92,6 +93,8 @@ const NumbersContainer = (props) => {
         <h1>{avgPerMonth}</h1>
       </div>
       <br></br>
+
+      <VictimList names={names} filter={props.filter} />
     </div>
   );
 };
