@@ -22,11 +22,11 @@ const NumbersContainer = (props) => {
       }
     }
 
-    //Concatenate Data Array to Date AND adds names to VictimList
+    //Concatenate Data Array to Date AND adds names to VictimList (concatenated with date in front for reference)
     for (let i = 0; i < concatArray.length; i++) {
       if (concatArray[i] === concatFilter && concatFilter !== "") {
         concatenatedArray.push(dateArray[i].toString().concat(concatArray[i]));
-        namesArray.push(props.name[i]);
+        namesArray.push(`${props.date[i]}${props.name[i]}`);
       } else if (concatFilter === "" && dateArray[i]) {
         concatenatedArray.push(dateArray[i].toString());
       }

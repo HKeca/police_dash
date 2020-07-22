@@ -4,8 +4,7 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Button from "@material-ui/core/Button";
-// import ListSubheader from "@material-ui/core/ListSubheader";
-import LazyLoad from "react-lazyload";
+import LazyLoad, { forceCheck } from "react-lazyload";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -44,39 +43,48 @@ const VictimList = (props) => {
       color="primary"
       onClick={() => {
         setShowVictims(true);
+        forceCheck();
       }}
     >
       Show Victims
     </Button>
   );
 
-  //   const victimListToRender = props.names.map((victim) => {
-  //     return (
-  //       <ListItem key={victim}>
-  //         <ListItemText primary={`${victim}`} />
-  //       </ListItem>
-  //     );
-  //   });
-
   return !showVictims ? (
     <ShowVictimButton />
   ) : (
-    <List className={classes.root} subheader={<li />}>
-      {props.names.map((victim) => {
-        return (
-          <LazyLoad
-            key={victim}
-            placeholder={<Loading />}
-            height={100}
-            overflow={true}
-          >
-            <ListItem key={victim}>
-              <ListItemText primary={`${victim}`} />
-            </ListItem>
-          </LazyLoad>
-        );
-      })}
-    </List>
+    <div>
+      <h6>Click a name below for a quick search</h6>
+      <List className={classes.root} subheader={<li />}>
+        {props.names.map((victim) => {
+          return (
+            <LazyLoad
+              key={victim}
+              placeholder={<Loading />}
+              overflow={true}
+              height={100}
+            >
+              <a
+                style={{ textDecoration: "none" }}
+                target="_blank"
+                rel="noopener noreferrer"
+                href={`https://google.com/search?q=${victim.substring(
+                  6,
+                  victim.length
+                )} police shooting ${victim.substring(0, 4)}`}
+              >
+                <ListItem key={victim}>
+                  <ListItemText
+                    primary={`${victim.substring(6, victim.length)}`}
+                    secondary={`${victim.substring(0, 4)}`}
+                  />
+                </ListItem>
+              </a>
+            </LazyLoad>
+          );
+        })}
+      </List>
+    </div>
   );
 };
 
