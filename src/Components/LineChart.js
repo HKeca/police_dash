@@ -12,6 +12,29 @@ const LineChart = (props) => {
     const valueArray = [];
     const labelArray = [];
 
+    const dateNumberToMonth = (dateNumber) => {
+      const conversion = [
+        { number: "01", month: "Jan" },
+        { number: "02", month: "Feb" },
+        { number: "03", month: "Mar" },
+        { number: "04", month: "Apr" },
+        { number: "05", month: "May" },
+        { number: "06", month: "Jun" },
+        { number: "07", month: "Jul" },
+        { number: "08", month: "Aug" },
+        { number: "09", month: "Sep" },
+        { number: "10", month: "Oct" },
+        { number: "11", month: "Nov" },
+        { number: "12", month: "Dec" },
+      ];
+
+      for (let i = 0; i < conversion.length; i++) {
+        if (dateNumber === conversion[i].number) {
+          return conversion[i].month;
+        }
+      }
+    };
+
     //Get Distinct Dates For Labels
     for (let i = 0; i < dateArray.length; i++) {
       if (
@@ -21,6 +44,14 @@ const LineChart = (props) => {
         labelArray.push(dateArray[i].toString());
       }
     }
+
+    //Convert Date Labels to Months
+    const convertedLabelArray = labelArray.map((label) => {
+      return `${dateNumberToMonth(label.substring(4, 6))} ${label.substring(
+        0,
+        4
+      )}`;
+    });
 
     //Concatenate Data Array to Date
     for (let i = 0; i < concatArray.length; i++) {
@@ -42,7 +73,7 @@ const LineChart = (props) => {
     return {
       valueArray: valueArray,
       concatFilter: concatFilter,
-      labelArray: labelArray,
+      labelArray: convertedLabelArray,
     };
   };
 
